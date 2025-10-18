@@ -7,7 +7,16 @@
     export let progress: number = 0;
 </script>
 
-<div class="container">
+<div class="flex flex-col h-screen gap-8 isolate p-4">
+    <header>
+        <div class="mt-6 flex max-w-md gap-x-4">
+            <a
+                href="/"
+                class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                >Back</a
+            >
+        </div>
+    </header>
     <div class="diagram-section">
         <TableDiagram drill={data.drill} {progress} />
     </div>
@@ -35,35 +44,4 @@
 </div>
 
 <style lang="scss">
-    .container {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        background: #1e1e1e;
-
-        .diagram-section {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
-
-        .text-section {
-            padding: 1rem 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            background: #2d2d2d;
-            color: white;
-
-            .instruction {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 1rem;
-                font-size: 1.2em;
-            }
-        }
-    }
 </style>
