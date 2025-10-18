@@ -3,6 +3,7 @@
     import type { Move } from "$lib/types/Move.js";
     import type { Drill } from "$lib/types/Drill.js";
     import { goto } from "$app/navigation";
+    import fixtures from "$lib/fixtures.js";
 
     let drill: Drill = {
         id: 0,
@@ -41,7 +42,7 @@
             return;
         }
 
-        const response = await fetch("http://127.0.0.1:8000/api/drills", {
+        const response = await fetch(`${fixtures.API_URL}/api/drills`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
