@@ -58,23 +58,8 @@
     }
 </script>
 
-<div class="container">
-    <div class="form-section">
-        <input
-            type="text"
-            bind:value={drill.name}
-            placeholder="Drill Name"
-            class="drill-name"
-        />
-        <div class="move-inputs">
-            <textarea
-                bind:value={drill.description}
-                placeholder="Description"
-                class="description"
-            ></textarea>
-        </div>
-    </div>
-    <div class="diagram-section">
+<div class="flex flex-col h-screen gap-8 isolate p-4">
+    <div class="h-auto mx-auto">
         <TableDiagram
             {drill}
             {progress}
@@ -84,20 +69,23 @@
             showGridText={false}
         />
     </div>
-    <div class="controls">
+
+    <div class="flex flex-col gap-4">
         {#if drill.moves.length > 0}
-            <div class="moves-list">
+            <div
+                class="flex flex-col gap-2 max-h-[300px] overflow-y-auto p-4 rounded bg-gray-800/50 backdrop-blur-sm"
+            >
                 {#each drill.moves as move, i}
-                    <div class="move-item">
-                        <div class="move-header">
-                            <span class="move-dot" style="color: {move.color}"
+                    <div
+                        class="flex flex-col gap-2 p-3 rounded bg-gray-800"
+                    >
+                        <div class="flex items-center gap-4">
+                            <span class="text-lg" style="color: {move.color}"
                                 >●</span
                             >
-                            <span class="move-path"
-                                >{move.from} → {move.to}</span
-                            >
+                            <span class="flex-1">{move.from} → {move.to}</span>
                             <button
-                                class="delete-button"
+                                class="p-1 text-2xl text-gray-400 rounded hover:bg-red-500/30 hover:text-red-500"
                                 on:click={() => deleteMove(i)}>×</button
                             >
                         </div>
@@ -110,16 +98,58 @@
                                     e.currentTarget.value,
                                 )}
                             placeholder="Short instruction"
-                            class="move-edit-instruction"
+                            class="w-full p-2 rounded bg-background-light text-white focus:outline-none focus:ring-2 focus:ring-primary"
                         ></textarea>
                     </div>
                 {/each}
             </div>
         {:else}
-            <p class="empty-state">Click grid cells to record moves</p>
+            <p class="text-center text-gray-500 p-8">
+                Click grid cells to record moves
+            </p>
         {/if}
-        <div class="buttons">
-            <button class="save-button" on:click={saveDrill}>Save Drill</button>
+    </div>
+
+    <div class="flex flex-col gap-6 max-w-2xl">
+        <div>
+            <label
+                for="drill-name"
+                class="block text-sm/6 font-semibold text-white"
+                >Drill name</label
+            >
+            <div class="mt-2">
+                <input
+                    bind:value={drill.name}
+                    id="drill-name"
+                    type="text"
+                    placeholder="Enter a name for your drill"
+                    class="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500"
+                />
+            </div>
+        </div>
+        <div>
+            <label
+                for="drill-description"
+                class="block text-sm/6 font-semibold text-white"
+                >Description</label
+            >
+            <div class="mt-2">
+                <textarea
+                    bind:value={drill.description}
+                    id="drill-description"
+                    rows="3"
+                    placeholder="Describe your drill"
+                    class="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500"
+                ></textarea>
+            </div>
+        </div>
+        <div class="flex justify-end">
+            <button
+                on:click={saveDrill}
+                class="block w-full rounded-md bg-indigo-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+            >
+                Save Drill
+            </button>
         </div>
     </div>
 </div>
@@ -296,6 +326,4 @@
             cursor: not-allowed;
         }
     }
-
-    
 </style>

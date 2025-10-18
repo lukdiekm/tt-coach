@@ -1,80 +1,45 @@
 <script lang="ts">
-    import type { PageData } from './$types.js';
+    import type { PageData } from "./$types.js";
     export let data: PageData;
 </script>
 
-<div class="container">
+<div class="flex flex-col h-screen gap-8 isolate p-4">
     <header>
-        <h1>Table Tennis Drills</h1>
-        <a href="/new" class="new-drill-button">New Drill</a>
+        <div class="mt-6 flex max-w-md gap-x-4">
+            <h1 class="flex-auto">Table Tennis Drills</h1>
+            <a
+                href="/new"
+                class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                >New</a
+            >
+        </div>
     </header>
-    <ul>
+
+    <ul role="list" class="divide-y divide-white/5">
         {#each data.drills as drill}
-            <li>
-                <a href="/{drill.id}">
-                    {drill.name}
-                </a>
-            </li>
+            <a href="/{drill.id}">
+                <li class="flex justify-between gap-x-6 py-5">
+                    <div class="flex min-w-0 gap-x-4">
+                        <div class="min-w-0 flex-auto">
+                            <p class="text-sm/6 font-semibold text-white">
+                                {drill.name}
+                            </p>
+                            <p class="mt-1 truncate text-xs/5 text-gray-400">
+                                {drill.description}
+                            </p>
+                        </div>
+                    </div>
+                    <div class=" shrink-0 sm:flex sm:flex-col sm:items-end">
+                        <span
+                            class="inline-flex items-center rounded-md bg-indigo-400/10 px-2 py-1 text-xs font-medium text-indigo-400 inset-ring inset-ring-indigo-400/30"
+                            >{drill.moves.length} moves</span
+                        >
+                    </div>
+                </li>
+            </a>
         {/each}
     </ul>
 </div>
+
 <style lang="scss">
-    .container {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        padding: 2rem;
-        background: #1e1e1e;
-        color: white;
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-
-            h1 {
-                margin: 0;
-                font-size: 2rem;
-            }
-        }
-
-        .new-drill-button {
-            padding: 0.75rem 1.5rem;
-            background: #2d9c0b;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            transition: background-color 0.2s;
-
-            &:hover {
-                background: lighten(#2d9c0b, 10%);
-            }
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            
-            li {
-                margin-bottom: 1rem;
-                
-                a {
-                    display: block;
-                    padding: 1rem;
-                    background: #0B4F9C;
-                    color: white;
-                    text-decoration: none;
-                    border-radius: 4px;
-                    transition: background-color 0.2s;
-                    
-                    &:hover {
-                        background: lighten(#0B4F9C, 10%);
-                    }
-                }
-            }
-        }
-    }
 </style>
