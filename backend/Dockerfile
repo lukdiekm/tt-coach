@@ -9,6 +9,6 @@ RUN apt-get update && apt-get install -y libsqlite3-dev libxml2-dev git unzip
 RUN docker-php-ext-install xml pdo_mysql
 RUN a2enmod rewrite
 COPY . /var/www/html/
-RUN composer install --no-dev --prefer-dist
+RUN composer install --prefer-dist
 RUN chown -R www-data:www-data /var/www/html
 ENTRYPOINT [ "/bin/bash", "/var/www/html/container-run.sh" ]
