@@ -66,7 +66,6 @@
 </script>
 
 <div class="table-container" class:reversed>
-    progess {progress}
     <svg viewBox="0 0 152.5 274" xmlns="http://www.w3.org/2000/svg">
         <!-- Tischtennis Tisch -->
         <rect x="0" y="0" width="152.5" height="274" fill="#0B4F9C" stroke="#ffffff" stroke-width="2"/>
