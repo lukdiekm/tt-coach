@@ -22,8 +22,10 @@ class DrillController extends Controller
     {
         $drill = Drill::create($request->validated());
 
+        $i=0;
         foreach ($request->moves as $move) {
-            $drill->moves()->create($move);
+            $drill->moves()->create([...$move,'order'=>$i]);
+            $i++;
         }
 
         return response()->json($drill->load('moves'), 201);

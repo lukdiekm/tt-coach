@@ -35,31 +35,30 @@
         display: flex;
         flex-direction: column;
         height: 100vh;
-        background: gray;
+        background: #1e1e1e;
 
         .diagram-section {
-            height: 85%;
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 2rem;
         }
 
         .text-section {
-            height: 15%;
-            padding: 1rem;
+            padding: 1rem 2rem;
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            background: rgba(0, 0, 0, 0.2);
+            background: #2d2d2d;
             color: white;
 
             .instruction {
                 display: flex;
-                flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                flex: 1;
-                gap: 0.5rem;
+                padding: 1rem;
+                font-size: 1.2em;
             }
 
             .controls {
@@ -68,22 +67,22 @@
                 gap: 1rem;
 
                 button {
-                    padding: 0.5rem 1rem;
+                    padding: 0.75rem 1.5rem;
                     border: none;
                     border-radius: 4px;
                     background: #0B4F9C;
                     color: white;
                     cursor: pointer;
-                    transition: all 0.2s ease;
+                    font-weight: bold;
+                    transition: all 0.2s;
                     
                     &:hover:not(:disabled) {
                         background: lighten(#0B4F9C, 10%);
                     }
 
                     &:disabled {
-                        background: #6c757d;
+                        background: #666;
                         cursor: not-allowed;
-                        opacity: 0.7;
                     }
                 }
             }
