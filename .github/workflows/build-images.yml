@@ -30,5 +30,3 @@ jobs:
           context: ./frontend
           push: true
           tags: registry.lukas-diekmann.de/tt-coach-frontend:latest,registry.lukas-diekmann.de/tt-coach-frontend:${{ github.sha }}
-          build-args: |
-            API_URL=https://api.tt.lukas-diekmann.de

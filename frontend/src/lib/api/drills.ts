@@ -1,6 +1,7 @@
+import { env } from '$env/dynamic/public';
 import type { Drill } from '$lib/types/Drill.js';
 
-const API_URL = "https://api.tt.lukas-diekmann.de"
+const API_URL = env.PUBLIC_API_URL ?? "https://api.tt.lukas-diekmann.de"
 
 export class DrillsAPI {
     private static getHeaders() {
