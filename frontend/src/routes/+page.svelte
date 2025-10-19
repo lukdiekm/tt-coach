@@ -2,8 +2,8 @@
     import type { PageData } from "./$types.js";
     import { goto } from "$app/navigation";
     import { onMount } from "svelte";
-    import { getUser } from "$lib/api/auth";
-    import { DrillsAPI } from "$lib/api/drills";
+    import { getUser } from "$lib/api/auth.js";
+    import { DrillsAPI } from "$lib/api/drills.js";
     import { invalidateAll } from "$app/navigation";
     export let data: PageData;
 
@@ -30,15 +30,12 @@
             return;
         }
 
-        isDeleting = true;
         try {
             await DrillsAPI.delete(drillId);
             await invalidateAll(); // Aktualisiert die Seite mit den neuen Daten
         } catch (error) {
             console.error('Failed to delete drill:', error);
             alert('Fehler beim Löschen des Drills');
-        } finally {
-            isDeleting = false;
         }
     }
 
@@ -80,7 +77,7 @@
 
     <ul role="list" class="divide-y divide-white/5">
         {#each data.drills as drill}
-            <a href="/{drill.id}">
+            <a href="/{drill.id}" data-sveltekit-preload-data="off">
                 <li class="flex justify-between gap-x-6 py-5">
                     <div class="flex min-w-0 gap-x-4">
                         <div class="min-w-0 flex-auto">
@@ -102,11 +99,7 @@
                             disabled={isDeleting}
                             class="inline-flex items-center rounded-md bg-red-500/10 px-2 py-1 text-xs font-medium text-red-400 hover:bg-red-500/20 focus:outline-none focus:ring-2 focus:ring-red-500/50"
                         >
-                            {#if isDeleting}
-                                Löschen...
-                            {:else}
-                                Löschen
-                            {/if}
+                                Delete
                         </button>
                     </div>
                 </li>
