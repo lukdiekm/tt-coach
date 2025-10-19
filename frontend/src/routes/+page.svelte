@@ -31,6 +31,7 @@
         }
 
         try {
+            isDeleting = true;
             await DrillsAPI.delete(drillId);
             await invalidateAll(); // Aktualisiert die Seite mit den neuen Daten
         } catch (error) {

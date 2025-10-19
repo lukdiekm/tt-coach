@@ -1,4 +1,3 @@
-import { env } from '$env/dynamic/public';
 import fixtures from '$lib/fixtures.js';
 import type { Drill } from '$lib/types/Drill.js';
 
