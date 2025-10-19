@@ -1,13 +1,14 @@
 import type { PageLoad } from './$types.js';
-import type { Drill } from '$lib/types/Drill.js';
-import fixtures from '$lib/fixtures.js';
+import { DrillsAPI } from '$lib/api/drills.js';
+
+export const ssr = false;
 
 export const load = (async () => {
-    const response = await fetch(`${fixtures.API_URL}/api/drills`);
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const drills: Drill[] = await response.json();
+    const drills = await DrillsAPI.list();
+    
+    return {
+        drills
+    };
     
     return {
         drills

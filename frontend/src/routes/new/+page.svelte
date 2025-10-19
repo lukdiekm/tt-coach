@@ -3,7 +3,7 @@
     import type { Move } from "$lib/types/Move.js";
     import type { Drill } from "$lib/types/Drill.js";
     import { goto } from "$app/navigation";
-    import fixtures from "$lib/fixtures.js";
+    import { DrillsAPI } from "$lib/api/drills.js";
 
     let drill: Drill = {
         id: 0,
@@ -42,19 +42,16 @@
             return;
         }
 
-        const response = await fetch(`${fixtures.API_URL}/api/drills`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(drill),
-        });
+        try {
+            const saved = await DrillsAPI.create(drill);
 
-        if (response.ok) {
-            const saved = await response.json();
             goto(`/${saved.id}`);
-        } else {
-            alert("Failed to save drill");
+        } catch (error) {
+            if (error instanceof Error && error.message === 'Not authenticated') {
+                goto('/login');
+            } else {
+                alert("Failed to save drill");
+            }
         }
     }
 </script>
