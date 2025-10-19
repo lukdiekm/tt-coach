@@ -1,8 +1,8 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
-    import { env } from "$env/dynamic/public";
+    import fixtures from "$lib/fixtures.js";
 
-    const API_URL = env.PUBLIC_API_URL ?? "https://api.tt.lukas-diekmann.de";
+    const API_URL = fixtures.API_URL
     let name = "";
     let email = "";
     let password = "";
