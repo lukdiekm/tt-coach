@@ -17,6 +17,8 @@ export async function getUser(): Promise<User> {
     const response = await fetch(`${API_URL}/api/user`, {
         headers: {
             'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
         },
     });
 
