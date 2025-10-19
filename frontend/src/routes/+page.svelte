@@ -1,17 +1,34 @@
 <script lang="ts">
     import type { PageData } from "./$types.js";
+    import { goto } from "$app/navigation";
     export let data: PageData;
+
+    async function handleLogout() {
+        try {
+            localStorage.removeItem('token');
+            goto('/login');
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    }
 </script>
 
 <div class="flex flex-col h-screen gap-8 isolate p-4">
     <header>
-        <div class="mt-6 flex max-w-md gap-x-4">
-            <h1 class="flex-auto">Table Tennis Drills</h1>
-            <a
-                href="/new"
-                class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                >New</a
-            >
+        <div class="mt-6 flex items-center justify-between">
+            <h1 class="text-xl font-semibold text-white">Table Tennis Drills</h1>
+            <div class="flex gap-x-4">
+                <a
+                    href="/new"
+                    class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                    >New</a
+                >
+                <button
+                    on:click={handleLogout}
+                    class="flex-none rounded-md bg-gray-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+                    >Logout</button
+                >
+            </div>
         </div>
     </header>
 
