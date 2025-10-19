@@ -1,20 +1,22 @@
 <script lang="ts">
-    import { goto } from '$app/navigation';
+    import { goto } from "$app/navigation";
+    import { env } from "$env/dynamic/public";
 
-    let email = '';
-    let password = '';
-    let errorMessage = '';
+    const API_URL = env.PUBLIC_API_URL ?? "https://api.tt.lukas-diekmann.de";
+    let email = "";
+    let password = "";
+    let errorMessage = "";
     let isLoading = false;
 
     async function handleSubmit() {
         isLoading = true;
-        errorMessage = '';
+        errorMessage = "";
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/login', {
-                method: 'POST',
+            const response = await fetch(`${API_URL}/api/login`, {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ email, password }),
             });
@@ -22,16 +24,19 @@
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.message || 'Login fehlgeschlagen');
+                throw new Error(data.message || "Login fehlgeschlagen");
             }
 
             // Token speichern
-            localStorage.setItem('token', data.token);
-            
+            localStorage.setItem("token", data.token);
+
             // Zur Hauptseite weiterleiten
-            goto('/');
+            goto("/");
         } catch (error) {
-            errorMessage = error instanceof Error ? error.message : 'Ein Fehler ist aufgetreten';
+            errorMessage =
+                error instanceof Error
+                    ? error.message
+                    : "Ein Fehler ist aufgetreten";
         } finally {
             isLoading = false;
         }
@@ -41,12 +46,17 @@
 <div class="min-h-screen flex items-center justify-center bg-gray-900">
     <div class="max-w-md w-full space-y-8 p-8">
         <div>
-            <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-white">
+            <h2
+                class="mt-6 text-center text-3xl font-bold tracking-tight text-white"
+            >
                 Anmelden
             </h2>
             <p class="mt-2 text-center text-sm text-gray-400">
                 Oder
-                <a href="/register" class="font-medium text-indigo-400 hover:text-indigo-300">
+                <a
+                    href="/register"
+                    class="font-medium text-indigo-400 hover:text-indigo-300"
+                >
                     registriere dich für einen neuen Account
                 </a>
             </p>
@@ -62,7 +72,10 @@
 
             <div class="space-y-6 rounded-md">
                 <div>
-                    <label for="email" class="block text-sm font-medium text-white">
+                    <label
+                        for="email"
+                        class="block text-sm font-medium text-white"
+                    >
                         E-Mail
                     </label>
                     <div class="mt-1">
@@ -80,7 +93,10 @@
                 </div>
 
                 <div>
-                    <label for="password" class="block text-sm font-medium text-white">
+                    <label
+                        for="password"
+                        class="block text-sm font-medium text-white"
+                    >
                         Passwort
                     </label>
                     <div class="mt-1">
@@ -105,9 +121,25 @@
                     class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     {#if isLoading}
-                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        <svg
+                            class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                        >
+                            <circle
+                                class="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                stroke-width="4"
+                            ></circle>
+                            <path
+                                class="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path>
                         </svg>
                         Anmeldung läuft...
                     {:else}
