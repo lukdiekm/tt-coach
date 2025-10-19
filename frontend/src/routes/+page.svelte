@@ -3,10 +3,13 @@
     import { goto } from "$app/navigation";
     import { onMount } from "svelte";
     import { getUser } from "$lib/api/auth";
+    import { DrillsAPI } from "$lib/api/drills";
+    import { invalidateAll } from "$app/navigation";
     export let data: PageData;
 
     let userName = "";
     let userEmail = "";
+    let isDeleting = false;
 
     onMount(async () => {
         try {
@@ -18,6 +21,26 @@
             goto("/login");
         }
     });
+
+    async function handleDelete(event: MouseEvent, drillId: number) {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        if (!confirm('Möchtest du diesen Drill wirklich löschen?')) {
+            return;
+        }
+
+        isDeleting = true;
+        try {
+            await DrillsAPI.delete(drillId);
+            await invalidateAll(); // Aktualisiert die Seite mit den neuen Daten
+        } catch (error) {
+            console.error('Failed to delete drill:', error);
+            alert('Fehler beim Löschen des Drills');
+        } finally {
+            isDeleting = false;
+        }
+    }
 
     async function handleLogout() {
         try {
@@ -69,11 +92,22 @@
                             </p>
                         </div>
                     </div>
-                    <div class=" shrink-0 sm:flex sm:flex-col sm:items-end">
+                    <div class="shrink-0 sm:flex sm:flex-col sm:items-end gap-2">
                         <span
                             class="inline-flex items-center rounded-md bg-indigo-400/10 px-2 py-1 text-xs font-medium text-indigo-400 inset-ring inset-ring-indigo-400/30"
                             >{drill.moves.length} moves</span
                         >
+                        <button
+                            on:click={(e) => handleDelete(e, drill.id)}
+                            disabled={isDeleting}
+                            class="inline-flex items-center rounded-md bg-red-500/10 px-2 py-1 text-xs font-medium text-red-400 hover:bg-red-500/20 focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                        >
+                            {#if isDeleting}
+                                Löschen...
+                            {:else}
+                                Löschen
+                            {/if}
+                        </button>
                     </div>
                 </li>
             </a>
