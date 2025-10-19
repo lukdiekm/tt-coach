@@ -1,6 +1,8 @@
 import type { Drill } from '$lib/types/Drill.js';
 import { PUBLIC_API_URL } from '$env/static/public'
 
+const API_URL = PUBLIC_API_URL ?? "https://api.tt.lukas-diekmann.de"
+
 export class DrillsAPI {
     private static getHeaders() {
         const token = localStorage.getItem('token');
@@ -15,7 +17,7 @@ export class DrillsAPI {
     }
 
     static async list(): Promise<Drill[]> {
-        const response = await fetch(`${PUBLIC_API_URL}/api/drills`, {
+        const response = await fetch(`${API_URL}/api/drills`, {
             headers: this.getHeaders()
         });
 
@@ -30,7 +32,7 @@ export class DrillsAPI {
     }
 
     static async get(id: number | string): Promise<Drill> {
-        const response = await fetch(`${PUBLIC_API_URL}/api/drills/${id}`, {
+        const response = await fetch(`${API_URL}/api/drills/${id}`, {
             headers: this.getHeaders()
         });
 
@@ -45,7 +47,7 @@ export class DrillsAPI {
     }
 
     static async create(drill: Omit<Drill, 'id'>): Promise<Drill> {
-        const response = await fetch(`${PUBLIC_API_URL}/api/drills`, {
+        const response = await fetch(`${API_URL}/api/drills`, {
             method: 'POST',
             headers: this.getHeaders(),
             body: JSON.stringify(drill)
@@ -62,7 +64,7 @@ export class DrillsAPI {
     }
 
     static async update(id: number | string, drill: Partial<Drill>): Promise<Drill> {
-        const response = await fetch(`${PUBLIC_API_URL}/api/drills/${id}`, {
+        const response = await fetch(`${API_URL}/api/drills/${id}`, {
             method: 'PUT',
             headers: this.getHeaders(),
             body: JSON.stringify(drill)
@@ -79,7 +81,7 @@ export class DrillsAPI {
     }
 
     static async delete(id: number | string): Promise<void> {
-        const response = await fetch(`${PUBLIC_API_URL}/api/drills/${id}`, {
+        const response = await fetch(`${API_URL}/api/drills/${id}`, {
             method: 'DELETE',
             headers: this.getHeaders()
         });
