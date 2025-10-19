@@ -14,7 +14,7 @@ export async function getUser(): Promise<User> {
         throw new Error('No token found');
     }
 
-    const response = await fetch(`http://${API_URL}/api/user`, {
+    const response = await fetch(`${API_URL}/api/user`, {
         headers: {
             'Authorization': `Bearer ${token}`,
         },
