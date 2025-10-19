@@ -258,7 +258,7 @@
             <path
                 d={path.path}
                 fill="none"
-                stroke={path.color}
+                stroke={i == progress ? path.color : "#dddddd"}
                 stroke-width="2"
                 stroke-dasharray="4"
             />
@@ -267,14 +267,14 @@
                 cx={path.start.x}
                 cy={path.start.y}
                 r="3"
-                fill={path.color}
+                fill={i == progress ? path.color : "#dddddd"}
             />
             {#if i === progress || i === paths.length - 1}
                 <circle
                     cx={path.end.x}
                     cy={path.end.y}
                     r="3"
-                    fill={path.color}
+                    fill={i == progress ? path.color : "#dddddd"}
                 />
             {/if}
         {/each}
