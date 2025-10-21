@@ -53,11 +53,18 @@
 <div class="flex flex-col h-screen gap-8 isolate p-4">
     <header>
         <div class="mt-6 flex items-center justify-between">
-            <a
-                href="/new"
-                class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                >New</a
-            >
+            <div class="flex gap-4">
+                <a
+                    href="/new"
+                    class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                    >New</a
+                >
+                <a
+                    href="/users"
+                    class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                    >Users</a
+                >
+            </div>
             <div class="flex gap-x-4">
                 <div class="flex flex-col items-end">
                     <h1 class="text-xl font-semibold text-white">
