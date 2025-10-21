@@ -1,10 +1,5 @@
-interface User {
-    id: number;
-    name: string;
-    email: string;
-    active: boolean;
-}
 import fixtures from '$lib/fixtures.js';
+import type { User } from '$lib/types/user'; // Adjust the import path as needed
 const API_URL = fixtures.API_URL;
 export class UsersAPI {
 
