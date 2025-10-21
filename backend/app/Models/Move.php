@@ -12,6 +12,7 @@ class Move extends Model
         'to',
         'color',
         'instruction',
+        'label',
         'order',
         'drill_id',
     ];

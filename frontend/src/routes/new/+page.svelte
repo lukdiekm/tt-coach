@@ -30,7 +30,7 @@
         progress = drill.moves.length - 1;
     }
 
-    function editMove(index: number, field: "instruction", value: string) {
+    function editMove(index: number, field: "instruction" | "label", value: string) {
         drill.moves = drill.moves.map((move, i) =>
             i === index ? { ...move, [field]: value } : move,
         );
@@ -96,6 +96,18 @@
                                 on:click={() => deleteMove(i)}>×</button
                             >
                         </div>
+                        <input
+                            type="text"
+                            value={move.label}
+                            on:input={(e) =>
+                                editMove(
+                                    i,
+                                    "label",
+                                    e.currentTarget.value,
+                                )}
+                            placeholder="Label (shown on diagram)"
+                            class="w-full p-2 rounded bg-white/5 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
                         <textarea
                             value={move.instruction}
                             on:input={(e) =>
@@ -104,8 +116,8 @@
                                     "instruction",
                                     e.currentTarget.value,
                                 )}
-                            placeholder="Short instruction"
-                            class="w-full p-2 rounded bg-background-light text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                            placeholder="Instruction"
+                            class="w-full p-2 rounded bg-white/5 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         ></textarea>
                     </div>
                 {/each}

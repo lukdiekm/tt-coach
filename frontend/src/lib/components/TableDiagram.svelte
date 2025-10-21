@@ -41,7 +41,8 @@
                 from: recordingState.from!,
                 to: position,
                 color: recordingState.color,
-                description: `Move ${drill.moves.length + 1}`,
+                instruction: "",
+                label: "",
             };
             dispatch("addMove", { move: newMove });
             recordingState = null;
@@ -100,11 +101,19 @@
         const controlX = (start.x + end.x) / 2;
         const controlY = midY + (end.y < start.y ? -30 : 30); // Wölbung der Kurve
 
+        // Berechne die Position für den Text (versetzt vom Mittelpunkt der Kurve)
+        // Offset zur Seite für bessere Lesbarkeit
+        const textX = controlX + 15;
+        const textY = controlY;
+
         return {
             path: `M ${start.x},${start.y} Q ${controlX},${controlY} ${end.x},${end.y}`,
             color: move.color,
             start,
             end,
+            textX,
+            textY,
+            label: move.label,
         };
     });
 </script>
@@ -277,6 +286,20 @@
                     fill={i == progress ? path.color : "#dddddd"}
                 />
             {/if}
+            <!-- Text neben der Linie -->
+            {#if i === progress && path.label && path.label.trim() !== ""}
+                <text
+                    x={path.textX}
+                    y={path.textY}
+                    font-size="8"
+                    fill={path.color}
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                    class="move-text"
+                >
+                    {path.label}
+                </text>
+            {/if}
         {/each}
 
         <!-- Spieler Position (unten) -->
@@ -315,6 +338,12 @@
         :global(.selected-start) {
             stroke: rgba(255, 255, 255, 0.6);
             stroke-width: 2;
+        }
+
+        :global(.move-text) {
+            font-weight: bold;
+            pointer-events: none;
+            user-select: none;
         }
     }
 </style>

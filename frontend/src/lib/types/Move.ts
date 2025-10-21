@@ -3,4 +3,5 @@ export type Move = {
     to: string;
     color: string;
     instruction: string;
+    label: string;
 };
