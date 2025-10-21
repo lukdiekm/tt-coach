@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { goto } from "$app/navigation";
-    import fixtures from "$lib/fixtures.js";
+    import type { PageData } from "./$types.js";
 
-    const API_URL = fixtures.API_URL;
+    export let data: PageData;
+
     let email = "";
     let password = "";
     let errorMessage = "";
@@ -13,25 +13,7 @@
         errorMessage = "";
 
         try {
-            const response = await fetch(`${API_URL}/api/login`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.message || "Login fehlgeschlagen");
-            }
-
-            // Token speichern
-            localStorage.setItem("token", data.token);
-
-            // Zur Hauptseite weiterleiten
-            goto("/");
+            await data.handleLogin(email, password);
         } catch (error) {
             errorMessage =
                 error instanceof Error
