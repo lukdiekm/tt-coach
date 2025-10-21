@@ -19,6 +19,15 @@
 </script>
 
 <div class="container mx-auto px-4 py-8">
+    <div class="mb-6">
+        <a
+            href="/"
+            class="inline-flex items-center rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+        >
+            Back
+        </a>
+    </div>
+
     <h1 class="text-2xl font-bold mb-6 text-white">User Management</h1>
     
     <div class="bg-gray-800 shadow-md rounded-lg overflow-hidden">

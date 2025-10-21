@@ -57,6 +57,15 @@
 </script>
 
 <div class="flex flex-col h-screen gap-8 isolate p-4">
+    <div class="mb-2">
+        <a
+            href="/"
+            class="inline-flex items-center rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+        >
+            Back
+        </a>
+    </div>
+
     <div class="h-auto mx-auto">
         <TableDiagram
             {drill}
