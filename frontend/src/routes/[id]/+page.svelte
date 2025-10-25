@@ -7,36 +7,34 @@
     export let progress: number = 0;
 </script>
 
-<div class="flex flex-col h-screen gap-8 isolate p-4">
+<div class="container-fluid p-4 min-vh-100">
     <header>
-        <div class="mt-6 flex max-w-md gap-x-4">
-            <a
-                href="/"
-                class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                >Back</a
-            >
+        <div class="mt-3 mb-4">
+            <a href="/" class="btn btn-primary">Back</a>
         </div>
     </header>
-    <div class="diagram-section">
+    <div class="diagram-section mb-4">
         <TableDiagram drill={data.drill} {progress} />
     </div>
     <div class="text-section">
-        <div class="instruction">
-            <p>{data.drill.moves[progress].instruction}</p>
+        <div class="card bg-dark text-white border-secondary mb-3">
+            <div class="card-body">
+                <p class="mb-0">{data.drill.moves[progress].instruction}</p>
+            </div>
         </div>
-        <div class="mt-6 flex max-w-md gap-x-4">
+        <div class="d-flex gap-3" style="max-width: 500px;">
             <button
                 on:click={() => progress--}
                 disabled={progress === 0}
-                type="submit"
-                class="flex-1 rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                type="button"
+                class="btn btn-primary flex-fill"
                 >Previous</button
             >
             <button
                 on:click={() => progress++}
                 disabled={progress === data.drill.moves.length - 1}
-                type="submit"
-                class="flex-1 rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                type="button"
+                class="btn btn-primary flex-fill"
                 >Next</button
             >
         </div>

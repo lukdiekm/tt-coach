@@ -1,7 +1,7 @@
-@import "tailwindcss";
+@import 'bootstrap/dist/css/bootstrap.min.css';
 
-/* @layer base {
-  html {
-    @apply bg-background text-white;
-  }
-} */
+/* Custom styles */
+body {
+  background-color: #111827;
+  color: #fff;
+}

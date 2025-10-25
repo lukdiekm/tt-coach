@@ -56,17 +56,12 @@
     }
 </script>
 
-<div class="flex flex-col h-screen gap-8 isolate p-4">
-    <div class="mb-2">
-        <a
-            href="/"
-            class="inline-flex items-center rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-        >
-            Back
-        </a>
+<div class="container-fluid p-4 min-vh-100">
+    <div class="mb-3">
+        <a href="/" class="btn btn-primary">Back</a>
     </div>
 
-    <div class="h-auto mx-auto">
+    <div class="mx-auto mb-4">
         <TableDiagram
             {drill}
             {progress}
@@ -77,95 +72,78 @@
         />
     </div>
 
-    <div class="flex flex-col gap-4">
+    <div class="mb-4">
         {#if drill.moves.length > 0}
-            <div
-                class="flex flex-col gap-2 max-h-[300px] overflow-y-auto p-4 rounded bg-gray-800/50 backdrop-blur-sm"
-            >
+            <div class="overflow-auto p-3 rounded bg-dark border border-secondary" style="max-height: 300px;">
                 {#each drill.moves as move, i}
-                    <div
-                        class="flex flex-col gap-2 p-3 rounded bg-gray-800"
-                    >
-                        <div class="flex items-center gap-4">
-                            <span class="text-lg" style="color: {move.color}"
-                                >●</span
-                            >
-                            <span class="flex-1">{move.from} → {move.to}</span>
-                            <button
-                                class="p-1 text-2xl text-gray-400 rounded hover:bg-red-500/30 hover:text-red-500"
-                                on:click={() => deleteMove(i)}>×</button
-                            >
+                    <div class="card bg-dark border-secondary mb-2">
+                        <div class="card-body p-3">
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <span class="fs-5" style="color: {move.color}">●</span>
+                                <span class="flex-grow-1">{move.from} → {move.to}</span>
+                                <button
+                                    class="btn btn-sm btn-outline-danger"
+                                    on:click={() => deleteMove(i)}>×</button>
+                            </div>
+                            <input
+                                type="text"
+                                value={move.label}
+                                on:input={(e) =>
+                                    editMove(
+                                        i,
+                                        "label",
+                                        e.currentTarget.value,
+                                    )}
+                                placeholder="Label (shown on diagram)"
+                                class="form-control form-control-sm bg-dark text-white border-secondary mb-2"
+                            />
+                            <textarea
+                                value={move.instruction}
+                                on:input={(e) =>
+                                    editMove(
+                                        i,
+                                        "instruction",
+                                        e.currentTarget.value,
+                                    )}
+                                placeholder="Instruction"
+                                class="form-control form-control-sm bg-dark text-white border-secondary"
+                            ></textarea>
                         </div>
-                        <input
-                            type="text"
-                            value={move.label}
-                            on:input={(e) =>
-                                editMove(
-                                    i,
-                                    "label",
-                                    e.currentTarget.value,
-                                )}
-                            placeholder="Label (shown on diagram)"
-                            class="w-full p-2 rounded bg-white/5 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        />
-                        <textarea
-                            value={move.instruction}
-                            on:input={(e) =>
-                                editMove(
-                                    i,
-                                    "instruction",
-                                    e.currentTarget.value,
-                                )}
-                            placeholder="Instruction"
-                            class="w-full p-2 rounded bg-white/5 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        ></textarea>
                     </div>
                 {/each}
             </div>
         {:else}
-            <p class="text-center text-gray-500 p-8">
+            <p class="text-center text-muted p-4">
                 Click grid cells to record moves
             </p>
         {/if}
     </div>
 
-    <div class="flex flex-col gap-6 max-w-2xl">
-        <div>
-            <label
-                for="drill-name"
-                class="block text-sm/6 font-semibold text-white"
-                >Drill name</label
-            >
-            <div class="mt-2">
-                <input
-                    bind:value={drill.name}
-                    id="drill-name"
-                    type="text"
-                    placeholder="Enter a name for your drill"
-                    class="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500"
-                />
-            </div>
+    <div class="row g-3" style="max-width: 800px;">
+        <div class="col-12">
+            <label for="drill-name" class="form-label fw-semibold text-white">Drill name</label>
+            <input
+                bind:value={drill.name}
+                id="drill-name"
+                type="text"
+                placeholder="Enter a name for your drill"
+                class="form-control bg-dark text-white border-secondary"
+            />
         </div>
-        <div>
-            <label
-                for="drill-description"
-                class="block text-sm/6 font-semibold text-white"
-                >Description</label
-            >
-            <div class="mt-2">
-                <textarea
-                    bind:value={drill.description}
-                    id="drill-description"
-                    rows="3"
-                    placeholder="Describe your drill"
-                    class="block w-full rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500"
-                ></textarea>
-            </div>
+        <div class="col-12">
+            <label for="drill-description" class="form-label fw-semibold text-white">Description</label>
+            <textarea
+                bind:value={drill.description}
+                id="drill-description"
+                rows="3"
+                placeholder="Describe your drill"
+                class="form-control bg-dark text-white border-secondary"
+            ></textarea>
         </div>
-        <div class="flex justify-end">
+        <div class="col-12">
             <button
                 on:click={saveDrill}
-                class="block w-full rounded-md bg-indigo-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                class="btn btn-primary w-100"
             >
                 Save Drill
             </button>

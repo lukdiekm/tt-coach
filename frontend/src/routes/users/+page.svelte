@@ -18,50 +18,46 @@
     }
 </script>
 
-<div class="container mx-auto px-4 py-8">
-    <div class="mb-6">
-        <a
-            href="/"
-            class="inline-flex items-center rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-        >
-            Back
-        </a>
+<div class="container py-4">
+    <div class="mb-3">
+        <a href="/" class="btn btn-primary">Back</a>
     </div>
 
-    <h1 class="text-2xl font-bold mb-6 text-white">User Management</h1>
+    <h1 class="h2 mb-4 text-white">User Management</h1>
     
-    <div class="bg-gray-800 shadow-md rounded-lg overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-700">
-            <thead class="bg-gray-900">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Name</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Email</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Status</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-700">
-                {#each users as user}
-                    <tr class="bg-gray-800 hover:bg-gray-700">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white">{user.name}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-white">{user.email}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                {user.active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
-                                {user.active ? 'Active' : 'Inactive'}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <button
-                                on:click={() => toggleUserActive(user.id)}
-                                class="text-sm font-medium text-blue-400 hover:text-blue-300"
-                            >
-                                {user.active ? 'Deactivate' : 'Activate'}
-                            </button>
-                        </td>
+    <div class="card bg-dark border-secondary">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
                     </tr>
-                {/each}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {#each users as user}
+                        <tr>
+                            <td>{user.name}</td>
+                            <td>{user.email}</td>
+                            <td>
+                                <span class="badge {user.active ? 'bg-success' : 'bg-danger'}">
+                                    {user.active ? 'Active' : 'Inactive'}
+                                </span>
+                            </td>
+                            <td>
+                                <button
+                                    on:click={() => toggleUserActive(user.id)}
+                                    class="btn btn-sm btn-outline-primary"
+                                >
+                                    {user.active ? 'Deactivate' : 'Activate'}
+                                </button>
+                            </td>
+                        </tr>
+                    {/each}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
