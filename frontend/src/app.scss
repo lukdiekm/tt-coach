@@ -25,6 +25,16 @@ $text-color: #ffffff;
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 
 // 6. Custom styles
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  /* Fallback for older browsers */
+  min-height: 100dvh;
+  /* Dynamic viewport height - adjusts for mobile address bars */
+}
+
 body {
   background-image: url('/seele-an-dJ6vjA-SSsk-unsplash.jpg');
   background-size: cover;
@@ -32,10 +42,14 @@ body {
   background-attachment: fixed;
   background-repeat: no-repeat;
   color: #fff;
-  min-height: 100vh;
+  
+  /* Fix for iOS Safari background-attachment: fixed */
+  @media (max-width: 768px) {
+    background-attachment: scroll;
+  }
 }
 
-/* Optional: Add a dark overlay for better text readability */
+/* Dark overlay for better text readability */
 body::before {
   content: '';
   position: fixed;
@@ -43,6 +57,8 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: -1;
 }

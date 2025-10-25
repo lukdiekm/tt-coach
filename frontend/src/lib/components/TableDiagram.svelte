@@ -33,7 +33,7 @@
             // Start new move
             recordingState = {
                 from: position,
-                color: moveColors[drill.moves.length % moveColors.length],
+                color: 'green',
             };
         } else {
             // Complete move
