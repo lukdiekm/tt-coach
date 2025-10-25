@@ -21,10 +21,12 @@ class DrillController extends Controller
     public function store(StoreDrillRequest $request)
     {
         $drill = Drill::create($request->validated());
+        $drill->owner_id = $request->user()->id;
+        $drill->save();
 
-        $i=0;
+        $i = 0;
         foreach ($request->moves as $move) {
-            $drill->moves()->create([...$move,'order'=>$i]);
+            $drill->moves()->create([...$move, 'order' => $i]);
             $i++;
         }
 
@@ -44,6 +46,10 @@ class DrillController extends Controller
      */
     public function update(StoreDrillRequest $request, Drill $drill)
     {
+        if ($request->user()->id !== $drill->owner_id) {
+            return response(status: 403);
+        }
+
         $drill->update($request->validated());
 
         foreach ($request->moves as $move) {
@@ -58,6 +64,10 @@ class DrillController extends Controller
      */
     public function destroy(Drill $drill)
     {
+        if (request()->user()->id !== $drill->owner_id) {
+            return response(status: 403);
+        }
+
         $drill->delete();
         return response()->json(null, 204);
     }

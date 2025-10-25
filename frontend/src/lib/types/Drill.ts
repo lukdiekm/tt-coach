@@ -5,4 +5,5 @@ export type Drill = {
     name: string;
     description: string;
     moves: Move[];
+    owner_id?: number;
 };
