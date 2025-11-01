@@ -79,23 +79,25 @@
 </script>
 
 <div class="container-fluid p-4 min-vh-100">
-    <div class="mb-3">
-        <a href="/" class="btn btn-primary">
-            <i class="bi bi-arrow-left"></i>
-        </a>
-    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8">
+            <div class="mb-3">
+                <a href="/" class="btn btn-primary">
+                    <i class="bi bi-arrow-left"></i>
+                </a>
+            </div>
 
-    <div class="mx-auto mb-4">
-        <TableDiagram
-            {drill}
-            {progress}
-            {isRecording}
-            on:addMove={handleAddMove}
-            showGrid={true}
-            showGridText={false}
-        />
-    </div>
-    <div class="bg-dark bg-opacity-50 card">
+            <div class="mx-auto mb-4">
+                <TableDiagram
+                    {drill}
+                    {progress}
+                    {isRecording}
+                    on:addMove={handleAddMove}
+                    showGrid={true}
+                    showGridText={false}
+                />
+            </div>
+            <div class="bg-dark bg-opacity-50 card">
         <div class=" card-body p-4">
             <div class="mb-4">
                 {#if drill.moves.length > 0}
@@ -212,5 +214,7 @@
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </div>
 </div>
