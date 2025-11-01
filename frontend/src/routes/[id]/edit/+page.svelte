@@ -46,7 +46,7 @@
         event.preventDefault();
         event.stopPropagation();
 
-        if (!confirm("Möchtest du diesen Drill wirklich löschen?")) {
+        if (!confirm("Möchtest du die Übung wirklich löschen?")) {
             return;
         }
 
@@ -56,7 +56,7 @@
             goto("/");
         } catch (error) {
             console.error("Failed to delete drill:", error);
-            alert("Fehler beim Löschen des Drills");
+            alert("Fehler beim Löschen der Übung");
             isDeleting = false;
         }
     }
@@ -73,7 +73,7 @@
                     <div
                         class="d-flex justify-content-between align-items-center mb-4"
                     >
-                        <h2 class="h4 mb-0 text-light">Drill bearbeiten</h2>
+                        <h2 class="h4 mb-0 text-light">Übung bearbeiten</h2>
                         <button
                             type="button"
                             on:click={handleCancel}
@@ -92,10 +92,7 @@
                     <form on:submit|preventDefault={handleSubmit}>
                         <!-- Drill Name -->
                         <div class="mb-4">
-                            <label
-                                for="name"
-                                class="form-label text-light fw-bold"
-                            >
+                            <label for="name" class="form-label fw-bold">
                                 Name
                             </label>
                             <input
@@ -103,45 +100,40 @@
                                 type="text"
                                 required
                                 bind:value={name}
-                                class="form-control form-control-lg"
-                                placeholder="Drill Name"
+                                class="form-control form-control-lg bg-dark border-0"
+                                placeholder="Name der Übung"
                             />
                         </div>
 
                         <!-- Drill Description -->
                         <div class="mb-4">
-                            <label
-                                for="description"
-                                class="form-label text-light fw-bold"
-                            >
+                            <label for="description" class="form-label fw-bold">
                                 Beschreibung
                             </label>
                             <textarea
                                 id="description"
                                 required
                                 bind:value={description}
-                                class="form-control"
+                                class="form-control bg-dark border-0"
                                 rows="3"
-                                placeholder="Beschreibung des Drills"
+                                placeholder="Beschreibung der Übung"
                             ></textarea>
                         </div>
 
                         <!-- Moves -->
                         <div class="mb-4">
-                            <h3 class="h5 text-light fw-bold mb-3">
-                                Moves ({moves.length})
+                            <h3 class="h5 fw-bold mb-3">
+                                Schläge ({moves.length})
                             </h3>
 
                             {#each moves as move, index}
-                                <div
-                                    class="card bg-secondary bg-opacity-25 mb-3 border-0"
-                                >
-                                    <div class="card-body">
+                                <div class="card bg-opacity-25 mb-3 border-0">
+                                    <div class="card-body p-0">
                                         <div
                                             class="d-flex justify-content-between align-items-start mb-2"
                                         >
-                                            <h4 class="h6 text-light mb-0">
-                                                Move {index + 1}
+                                            <h4 class="h6 mb-0">
+                                                Schlag {index + 1}
                                             </h4>
                                             <span
                                                 class="badge bg-primary rounded-pill"
@@ -151,7 +143,6 @@
                                         </div>
 
                                         <div class="mb-3">
-                                          
                                             <label
                                                 for="instruction-{index}"
                                                 class="form-label text-light small"
@@ -161,38 +152,43 @@
                                             <textarea
                                                 id="instruction-{index}"
                                                 bind:value={move.instruction}
-                                                class="form-control form-control-sm"
+                                                class="form-control form-control-sm bg-dark border-0"
                                                 rows="2"
                                                 placeholder="Detaillierte Anweisungen für diesen Move..."
                                             ></textarea>
                                         </div>
 
                                         <div>
-                                              <label
+                                            <label
                                                 for="label-{index}"
-                                                class="form-label text-light small"
+                                                class="form-label small"
                                             >
-                                                Label
+                                                Hinweis
                                             </label>
                                             <input
                                                 id="label-{index}"
                                                 type="text"
                                                 bind:value={move.label}
-                                                class="form-control form-control-sm"
+                                                class="form-control form-control-sm bg-dark border-0"
                                                 placeholder="z.B. 2x (optional)"
                                             />
                                         </div>
                                     </div>
                                 </div>
+
+                                {#if index < moves.length - 1}
+                                    <div class="text-center my-2">
+                                        <i class="bi bi-arrow-down"></i>
+                                    </div>
+                                {/if}
                             {/each}
                         </div>
 
                         <div class="d-grid gap-2">
-                            <div class="form-check form-switch">
+                            <div class="form-check mb-4">
                                 <input
                                     class="form-check-input"
                                     type="checkbox"
-                                    role="switch"
                                     id="visibility"
                                     bind:checked={isPublic}
                                 />

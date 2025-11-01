@@ -40,13 +40,13 @@
                             <a href="/new" class="btn btn-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
                                 <i class="bi bi-plus-lg"></i>
                             </a>
-                            <a href="/users" class="btn btn-primary rounded-pill">Users</a>
+                            <a href="/users" class="btn btn-primary rounded-pill">Benutzer</a>
                         </div>
                         <div class="d-flex gap-3 align-items-center">
                             <button
                                 on:click={handleLogout}
                                 class="btn btn-outline-light rounded-pill"
-                                >Logout</button
+                                >Abmelden</button
                             >
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                                     </div>
                                     <div class="d-flex flex-column align-items-end gap-2">
                                         <span class="badge bg-primary text-white rounded-pill">
-                                            {drill.moves.length} moves
+                                            {drill.moves.length} Schläge
                                         </span>
                                     </div>
                                 </li>

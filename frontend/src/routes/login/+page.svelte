@@ -64,8 +64,7 @@
                                 autocomplete="email"
                                 required
                                 bind:value={email}
-                                class="form-control"
-                                style="background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 0, 0, 0.2);"
+                                class="form-control bg-dark border-0"
                                 placeholder="your@email.com"
                             />
                         </div>
@@ -81,8 +80,7 @@
                                 autocomplete="current-password"
                                 required
                                 bind:value={password}
-                                class="form-control"
-                                style="background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 0, 0, 0.2);"
+                                class="form-control bg-dark border-0"
                                 placeholder="••••••••"
                             />
                         </div>

@@ -34,15 +34,15 @@
 
 <div class="container-fluid p-4">
     <div
-        class="min-vh-100 d-flex align-items-center justify-content-center row"
+         class="min-vh-100 d-flex align-items-center justify-content-center row"
     >
         <div class="w-100 col-12" style="max-width: 400px;">
             <div
-                class="card border-0 bg-dark bg-opacity-25"
+                class="card border-0 bg-dark bg-opacity-50"
                 style="backdrop-filter: blur(10px);"
             >
                 <div class="card-body p-4">
-                    <h2 class="card-title text-center h3 mb-3 text-light">
+                    <h2 class="card-title text-center h3 mb-3">
                         Registrieren
                     </h2>
                     <p class="text-center text-muted small mb-4">
@@ -61,7 +61,7 @@
                         {/if}
 
                         <div class="mb-3">
-                            <label for="name" class="form-label text-light"
+                            <label for="name" class="form-label"
                                 >Name</label
                             >
                             <input
@@ -70,14 +70,13 @@
                                 type="text"
                                 required
                                 bind:value={name}
-                                class="form-control"
-                                style="background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 0, 0, 0.2);"
+                                class="form-control bg-dark border-0"
                                 placeholder="Max Mustermann"
                             />
                         </div>
 
                         <div class="mb-3">
-                            <label for="email" class="form-label text-light"
+                            <label for="email" class="form-label"
                                 >E-Mail</label
                             >
                             <input
@@ -87,14 +86,13 @@
                                 autocomplete="email"
                                 required
                                 bind:value={email}
-                                class="form-control"
-                                style="background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 0, 0, 0.2);"
+                                class="form-control bg-dark border-0"
                                 placeholder="your@email.com"
                             />
                         </div>
 
                         <div class="mb-3">
-                            <label for="password" class="form-label text-light"
+                            <label for="password" class="form-label"
                                 >Passwort</label
                             >
                             <input
@@ -103,8 +101,7 @@
                                 type="password"
                                 required
                                 bind:value={password}
-                                class="form-control"
-                                style="background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 0, 0, 0.2);"
+                                class="form-control bg-dark border-0"
                                 placeholder="••••••••"
                                 minlength="8"
                             />
@@ -113,7 +110,7 @@
                         <div class="mb-3">
                             <label
                                 for="password_confirmation"
-                                class="form-label text-light"
+                                class="form-label"
                                 >Passwort bestätigen</label
                             >
                             <input
@@ -122,8 +119,7 @@
                                 type="password"
                                 required
                                 bind:value={passwordConfirmation}
-                                class="form-control"
-                                style="background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(0, 0, 0, 0.2);"
+                                class="form-control bg-dark border-0"
                                 placeholder="••••••••"
                                 minlength="8"
                             />
