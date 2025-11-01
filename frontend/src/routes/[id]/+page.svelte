@@ -9,8 +9,9 @@
 
 <div class="container-fluid p-4 min-vh-100">
     <header>
-        <div class="mt-3 mb-4">
+        <div class="mt-3 mb-4 d-flex justify-content-between align-items-center">
             <a href="/" class="btn btn-primary">Back</a>
+            <a href="/{data.drill.id}/edit" class="btn btn-primary">Edit</a>
         </div>
     </header>
     <div class="diagram-section mb-4">
