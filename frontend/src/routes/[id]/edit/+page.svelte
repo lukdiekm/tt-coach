@@ -12,6 +12,7 @@
     let isPublic = data.drill.isPublic;
     let isSaving = false;
     let errorMessage = "";
+    let isDeleting = false;
 
     async function handleSubmit() {
         isSaving = true;
@@ -40,6 +41,25 @@
     function handleCancel() {
         goto(`/${data.drill.id}`);
     }
+
+    async function handleDelete(event: MouseEvent, drillId: number) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (!confirm("Möchtest du diesen Drill wirklich löschen?")) {
+            return;
+        }
+
+        try {
+            isDeleting = true;
+            await DrillsAPI.delete(drillId);
+            goto("/");
+        } catch (error) {
+            console.error("Failed to delete drill:", error);
+            alert("Fehler beim Löschen des Drills");
+            isDeleting = false;
+        }
+    }
 </script>
 
 <div class="container-fluid p-4 min-vh-100">
@@ -54,23 +74,6 @@
                         class="d-flex justify-content-between align-items-center mb-4"
                     >
                         <h2 class="h4 mb-0 text-light">Drill bearbeiten</h2>
-                        <div>
-                            <div class="form-check form-switch">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    role="switch"
-                                    id="visibility"
-                                    bind:checked={isPublic}
-                                />
-                                <label
-                                    class="form-check-label text-light"
-                                    for="visibility"
-                                >
-                                    Öffentlich
-                                </label>
-                            </div>
-                        </div>
                         <button
                             type="button"
                             on:click={handleCancel}
@@ -183,6 +186,24 @@
                             {/each}
                         </div>
 
+                        <div class="d-grid gap-2">
+                            <div class="form-check form-switch">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    role="switch"
+                                    id="visibility"
+                                    bind:checked={isPublic}
+                                />
+                                <label
+                                    class="form-check-label text-light"
+                                    for="visibility"
+                                >
+                                    Öffentlich
+                                </label>
+                            </div>
+                        </div>
+
                         <!-- Submit Button -->
                         <div class="d-grid gap-2">
                             <button
@@ -200,6 +221,14 @@
                                 {:else}
                                     Änderungen speichern
                                 {/if}
+                            </button>
+
+                            <button
+                                on:click={(e) => handleDelete(e, data.drill.id)}
+                                disabled={isDeleting}
+                                class="btn btn-sm btn-outline-danger rounded-pill mt-3"
+                            >
+                                Delete
                             </button>
                         </div>
                     </form>

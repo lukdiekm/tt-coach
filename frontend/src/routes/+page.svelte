@@ -3,13 +3,10 @@
     import { goto } from "$app/navigation";
     import { onMount } from "svelte";
     import { getUser } from "$lib/api/auth.js";
-    import { DrillsAPI } from "$lib/api/drills.js";
     import type { User } from "$lib/types/User.js";
-    import { invalidateAll } from "$app/navigation";
     export let data: PageData;
 
     let user: User | null = null;
-    let isDeleting = false;
 
     onMount(async () => {
         try {
@@ -20,23 +17,7 @@
         }
     });
 
-    async function handleDelete(event: MouseEvent, drillId: number) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        if (!confirm("Möchtest du diesen Drill wirklich löschen?")) {
-            return;
-        }
-
-        try {
-            isDeleting = true;
-            await DrillsAPI.delete(drillId);
-            await invalidateAll(); // Aktualisiert die Seite mit den neuen Daten
-        } catch (error) {
-            console.error("Failed to delete drill:", error);
-            alert("Fehler beim Löschen des Drills");
-        }
-    }
+    
 
     async function handleLogout() {
         try {
@@ -91,15 +72,6 @@
                                         <span class="badge bg-primary text-white rounded-pill">
                                             {drill.moves.length} moves
                                         </span>
-                                        {#if drill.owner_id === user?.id}
-                                            <button
-                                                on:click={(e) => handleDelete(e, drill.id)}
-                                                disabled={isDeleting}
-                                                class="btn btn-sm btn-outline-danger rounded-pill"
-                                            >
-                                                Delete
-                                            </button>
-                                        {/if}
                                     </div>
                                 </li>
                             </a>
