@@ -3,6 +3,9 @@
     import { goto } from "$app/navigation";
     import { DrillsAPI } from "$lib/api/drills.js";
     import type { Drill } from "$lib/types/Drill.js";
+    import type { DrillCategory } from "$lib/types/DrillCategory.js";
+    import { onMount } from "svelte";
+    import { DrillCategoriesAPI } from "$lib/api/drillCategories.js";
 
     export let data: PageData;
 
@@ -13,6 +16,16 @@
     let isSaving = false;
     let errorMessage = "";
     let isDeleting = false;
+    let categories: DrillCategory[] = [];
+    let selectedCategoryId: number | null = null;
+
+    onMount(async () => {
+        try {
+            categories = await DrillCategoriesAPI.list();
+        } catch (error) {
+            console.error("Failed to load categories:", error);
+        }
+    });
 
     async function handleSubmit() {
         isSaving = true;
@@ -184,7 +197,7 @@
                             {/each}
                         </div>
 
-                        <div class="d-grid gap-2">
+                        <div class="d-grid gap-2 mb-4">
                             <div class="form-check mb-4">
                                 <input
                                     class="form-check-input"
@@ -199,6 +212,24 @@
                                     Öffentlich
                                 </label>
                             </div>
+
+                            <label
+                                for="drill-category"
+                                class="form-label fw-semibold"
+                            >
+                                Kategorie
+                            </label>
+                            <select
+                                bind:value={selectedCategoryId}
+                                id="drill-category"
+                                class="form-select bg-dark border-0"
+                            >
+                                {#each categories as category}
+                                    <option value={category.id}>
+                                        {category.name}
+                                    </option>
+                                {/each}
+                            </select>
                         </div>
 
                         <!-- Submit Button -->
@@ -236,6 +267,3 @@
         </div>
     </div>
 </div>
-
-<style lang="scss">
-</style>

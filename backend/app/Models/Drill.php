@@ -13,4 +13,9 @@ class Drill extends Model
     {
         return $this->hasMany(Move::class);
     }
+
+    public function drillCategory()
+    {
+        return $this->belongsTo(DrillCategory::class);
+    }
 }

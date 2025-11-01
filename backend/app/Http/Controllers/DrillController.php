@@ -16,7 +16,7 @@ class DrillController extends Controller
 
         return Drill::where('is_public', true)
             ->orWhere('owner_id', $userId)
-            ->with('moves')
+            ->with(['moves', 'drillCategory'])
             ->get();
     }
 
@@ -25,7 +25,12 @@ class DrillController extends Controller
      */
     public function store(StoreDrillRequest $request)
     {
-        $drill = Drill::create($request->validated());
+//        $drill = Drill::create($request->validated());
+        $drill = new Drill();
+        $drill->name = $request->name;
+        $drill->description = $request->description;
+        $drill->is_public = $request->isPublic;
+        $drill->drillCategory()->associate($request->category_id);
         $drill->owner_id = $request->user()->id;
         $drill->save();
 
@@ -35,7 +40,7 @@ class DrillController extends Controller
             $i++;
         }
 
-        return response()->json($drill->load('moves'), 201);
+        return response()->json($drill->load(['moves', 'drillCategory']), 201);
     }
 
     /**
@@ -43,7 +48,7 @@ class DrillController extends Controller
      */
     public function show(Drill $drill)
     {
-        return $drill->load('moves');
+        return $drill->load(['moves', 'drillCategory']);
     }
 
     /**

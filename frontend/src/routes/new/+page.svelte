@@ -2,18 +2,32 @@
     import TableDiagram from "$lib/components/TableDiagram.svelte";
     import type { Move } from "$lib/types/Move.js";
     import type { Drill } from "$lib/types/Drill.js";
+    import type { DrillCategory } from "$lib/types/DrillCategory.js";
     import { goto } from "$app/navigation";
     import { DrillsAPI } from "$lib/api/drills.js";
+    import { DrillCategoriesAPI } from "$lib/api/drillCategories.js";
+    import { onMount } from "svelte";
 
     let drill: Drill = {
         id: 0,
         name: "",
         description: "",
         moves: [],
+        isPublic: false,
     };
 
+    let categories: DrillCategory[] = [];
+    let selectedCategoryId: number | null = null;
     let progress = drill.moves.length - 1;
     let isRecording = true;
+
+    onMount(async () => {
+        try {
+            categories = await DrillCategoriesAPI.list();
+        } catch (error) {
+            console.error("Failed to load categories:", error);
+        }
+    });
 
     async function handleAddMove(event: CustomEvent<{ move: Move }>) {
         const move = {
@@ -47,6 +61,7 @@
         }
 
         try {
+            drill.drill_category_id = selectedCategoryId ?? undefined;
             const saved = await DrillsAPI.create(drill);
 
             goto(`/${saved.id}`);
@@ -173,6 +188,22 @@
                         placeholder="Beschreibe deine Übung, was sie beinhaltet oder wie sie ausgeführt werden soll"
                         class="form-control bg-dark border-0"
                     ></textarea>
+                </div>
+                <div class="col-12">
+                    <label for="drill-category" class="form-label fw-semibold">
+                        Kategorie
+                    </label>
+                    <select
+                        bind:value={selectedCategoryId}
+                        id="drill-category"
+                        class="form-select bg-dark border-0"
+                    >
+                        {#each categories as category}
+                            <option value={category.id}>
+                                {category.name}
+                            </option>
+                        {/each}
+                    </select>
                 </div>
                 <div class="col-12">
                     <button on:click={saveDrill} class="btn btn-primary w-100">

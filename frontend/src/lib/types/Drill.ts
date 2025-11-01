@@ -1,4 +1,5 @@
 import type { Move } from "./Move.js";
+import type { DrillCategory } from "./DrillCategory.js";
 
 export type Drill = {
     id: number;
@@ -6,5 +7,7 @@ export type Drill = {
     description: string;
     moves: Move[];
     owner_id?: number;
+    drill_category?: DrillCategory;
+    drill_category_id?: number;
     isPublic: boolean;
 };

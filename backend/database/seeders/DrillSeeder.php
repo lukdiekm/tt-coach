@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Drill;
+use App\Models\DrillCategory;
 use App\Models\Move;
 use Illuminate\Database\Seeder;
 
@@ -74,12 +75,37 @@ class DrillSeeder extends Seeder
             ],
         ];
 
+        DrillCategory::create([
+            'id' => 1,
+            'name' => 'Technik',
+            'color' => '#ff3333ff',
+        ]);
+
+        DrillCategory::create(array(
+            'id' => 2,
+            'name' => 'Aufschlage',
+            'color' => '#47e318ff',
+        ));
+
+        DrillCategory::create([
+            'id' => 3,
+            'name' => 'Schnelligkeit',
+            'color' => '#0e39e1ff',
+        ]);
+
+        DrillCategory::create([
+            'id' => 4,
+            'name' => 'Platzierung',
+            'color' => '#ffe433ff',
+        ]);
+
         foreach ($drills as $drill) {
             Drill::create([
                 'id' => $drill['id'],
                 'name' => $drill['name'],
                 'description' => $drill['description'],
                 "owner_id" => 1,
+                'drill_category_id' => 1,
             ]);
 
             foreach ($drill["moves"] as $move) {
