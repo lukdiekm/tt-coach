@@ -30,7 +30,11 @@
         progress = drill.moves.length - 1;
     }
 
-    function editMove(index: number, field: "instruction" | "label", value: string) {
+    function editMove(
+        index: number,
+        field: "instruction" | "label",
+        value: string,
+    ) {
         drill.moves = drill.moves.map((move, i) =>
             i === index ? { ...move, [field]: value } : move,
         );
@@ -47,8 +51,11 @@
 
             goto(`/${saved.id}`);
         } catch (error) {
-            if (error instanceof Error && error.message === 'Not authenticated') {
-                goto('/login');
+            if (
+                error instanceof Error &&
+                error.message === "Not authenticated"
+            ) {
+                goto("/login");
             } else {
                 alert("Failed to save drill");
             }
@@ -74,29 +81,30 @@
 
     <div class="mb-4">
         {#if drill.moves.length > 0}
-            <div class="overflow-auto p-3 rounded bg-dark border border-secondary" style="max-height: 300px;">
+            <div
+                class="overflow-auto p-3 rounded bg-dark border border-secondary"
+                style="max-height: 300px;"
+            >
                 {#each drill.moves as move, i}
                     <div class="card bg-dark border-secondary mb-2">
                         <div class="card-body p-3">
                             <div class="d-flex align-items-center gap-3 mb-2">
-                                <span class="fs-5" style="color: {move.color}">●</span>
-                                <span class="flex-grow-1">{move.from} → {move.to}</span>
+                                <span class="fs-5" style="color: {move.color}"
+                                    >●</span
+                                >
+                                <span class="flex-grow-1"
+                                    >{move.from} → {move.to}</span
+                                >
                                 <button
-                                    class="btn btn-sm btn-outline-danger"
-                                    on:click={() => deleteMove(i)}>×</button>
+                                    class="btn btn-outline-danger rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 32px; height: 32px; padding: 0;"
+                                    on:click={() => deleteMove(i)}
+                                    title="Move löschen"
+                                >
+                                    <i class="bi bi-trash"></i>
+                                </button>
                             </div>
-                            <input
-                                type="text"
-                                value={move.label}
-                                on:input={(e) =>
-                                    editMove(
-                                        i,
-                                        "label",
-                                        e.currentTarget.value,
-                                    )}
-                                placeholder="Label (shown on diagram)"
-                                class="form-control form-control-sm bg-dark text-white border-secondary mb-2"
-                            />
+
                             <textarea
                                 value={move.instruction}
                                 on:input={(e) =>
@@ -106,8 +114,16 @@
                                         e.currentTarget.value,
                                     )}
                                 placeholder="Instruction"
-                                class="form-control form-control-sm bg-dark text-white border-secondary"
+                                class="form-control form-control-sm bg-dark text-white border-secondary mb-2"
                             ></textarea>
+                            <input
+                                type="text"
+                                value={move.label}
+                                on:input={(e) =>
+                                    editMove(i, "label", e.currentTarget.value)}
+                                placeholder="Label (shown on diagram)"
+                                class="form-control form-control-sm bg-dark text-white border-secondary"
+                            />
                         </div>
                     </div>
                 {/each}
@@ -121,7 +137,9 @@
 
     <div class="row g-3" style="max-width: 800px;">
         <div class="col-12">
-            <label for="drill-name" class="form-label fw-semibold text-white">Drill name</label>
+            <label for="drill-name" class="form-label fw-semibold text-white"
+                >Drill name</label
+            >
             <input
                 bind:value={drill.name}
                 id="drill-name"
@@ -131,7 +149,10 @@
             />
         </div>
         <div class="col-12">
-            <label for="drill-description" class="form-label fw-semibold text-white">Description</label>
+            <label
+                for="drill-description"
+                class="form-label fw-semibold text-white">Description</label
+            >
             <textarea
                 bind:value={drill.description}
                 id="drill-description"
@@ -141,10 +162,7 @@
             ></textarea>
         </div>
         <div class="col-12">
-            <button
-                on:click={saveDrill}
-                class="btn btn-primary w-100"
-            >
+            <button on:click={saveDrill} class="btn btn-primary w-100">
                 Save Drill
             </button>
         </div>

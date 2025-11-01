@@ -151,22 +151,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label
-                                                for="label-{index}"
-                                                class="form-label text-light small"
-                                            >
-                                                Label
-                                            </label>
-                                            <input
-                                                id="label-{index}"
-                                                type="text"
-                                                bind:value={move.label}
-                                                class="form-control form-control-sm"
-                                                placeholder="z.B. Topspin, Block..."
-                                            />
-                                        </div>
-
-                                        <div>
+                                          
                                             <label
                                                 for="instruction-{index}"
                                                 class="form-label text-light small"
@@ -180,6 +165,22 @@
                                                 rows="2"
                                                 placeholder="Detaillierte Anweisungen für diesen Move..."
                                             ></textarea>
+                                        </div>
+
+                                        <div>
+                                              <label
+                                                for="label-{index}"
+                                                class="form-label text-light small"
+                                            >
+                                                Label
+                                            </label>
+                                            <input
+                                                id="label-{index}"
+                                                type="text"
+                                                bind:value={move.label}
+                                                class="form-control form-control-sm"
+                                                placeholder="z.B. 2x (optional)"
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -226,9 +227,11 @@
                             <button
                                 on:click={(e) => handleDelete(e, data.drill.id)}
                                 disabled={isDeleting}
-                                class="btn btn-sm btn-outline-danger rounded-pill mt-3"
+                                class="btn btn-outline-danger rounded-circle d-flex align-items-center justify-content-center mx-auto mt-3"
+                                style="width: 48px; height: 48px;"
+                                title="Drill löschen"
                             >
-                                Delete
+                                <i class="bi bi-trash"></i>
                             </button>
                         </div>
                     </form>
