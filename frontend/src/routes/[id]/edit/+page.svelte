@@ -9,6 +9,7 @@
     let name = data.drill.name;
     let description = data.drill.description;
     let moves = [...data.drill.moves];
+    let isPublic = data.drill.isPublic;
     let isSaving = false;
     let errorMessage = "";
 
@@ -20,7 +21,8 @@
             const updatedDrill: Partial<Drill> = {
                 name,
                 description,
-                moves
+                moves,
+                isPublic,
             };
 
             await DrillsAPI.update(data.drill.id, updatedDrill);
@@ -48,8 +50,27 @@
                 style="backdrop-filter: blur(10px);"
             >
                 <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div
+                        class="d-flex justify-content-between align-items-center mb-4"
+                    >
                         <h2 class="h4 mb-0 text-light">Drill bearbeiten</h2>
+                        <div>
+                            <div class="form-check form-switch">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    role="switch"
+                                    id="visibility"
+                                    bind:checked={isPublic}
+                                />
+                                <label
+                                    class="form-check-label text-light"
+                                    for="visibility"
+                                >
+                                    Öffentlich
+                                </label>
+                            </div>
+                        </div>
                         <button
                             type="button"
                             on:click={handleCancel}
@@ -68,7 +89,10 @@
                     <form on:submit|preventDefault={handleSubmit}>
                         <!-- Drill Name -->
                         <div class="mb-4">
-                            <label for="name" class="form-label text-light fw-bold">
+                            <label
+                                for="name"
+                                class="form-label text-light fw-bold"
+                            >
                                 Name
                             </label>
                             <input
@@ -83,7 +107,10 @@
 
                         <!-- Drill Description -->
                         <div class="mb-4">
-                            <label for="description" class="form-label text-light fw-bold">
+                            <label
+                                for="description"
+                                class="form-label text-light fw-bold"
+                            >
                                 Beschreibung
                             </label>
                             <textarea
@@ -103,13 +130,19 @@
                             </h3>
 
                             {#each moves as move, index}
-                                <div class="card bg-secondary bg-opacity-25 mb-3 border-0">
+                                <div
+                                    class="card bg-secondary bg-opacity-25 mb-3 border-0"
+                                >
                                     <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div
+                                            class="d-flex justify-content-between align-items-start mb-2"
+                                        >
                                             <h4 class="h6 text-light mb-0">
                                                 Move {index + 1}
                                             </h4>
-                                            <span class="badge bg-primary rounded-pill">
+                                            <span
+                                                class="badge bg-primary rounded-pill"
+                                            >
                                                 {move.from} → {move.to}
                                             </span>
                                         </div>

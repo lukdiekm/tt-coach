@@ -12,9 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('drills', function (Blueprint $table) {
-            $table->foreignId('owner_id')
-                ->constrained('users')
-                ->onDelete('set null');
+            $table->boolean('is_public')->default(true);
         });
     }
 
@@ -24,8 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('drills', function (Blueprint $table) {
-            $table->dropForeign(['owner_id']);
-            $table->dropColumn('owner_id');
+            $table->dropColumn('is_public');
         });
     }
 };

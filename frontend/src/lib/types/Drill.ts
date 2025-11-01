@@ -6,4 +6,5 @@ export type Drill = {
     description: string;
     moves: Move[];
     owner_id?: number;
+    isPublic: boolean;
 };

@@ -18,6 +18,7 @@ class DrillSeeder extends Seeder
                 "id" => 1,
                 "name" => "Vorhand Eröffnung auf Schupf",
                 "description" => "",
+                "owner_id" => 1,
                 "moves" => [
                     [
                         "order" => 0,
@@ -46,6 +47,7 @@ class DrillSeeder extends Seeder
                 "id" => 2,
                 "name" => "Vorhandflip",
                 "description" => "",
+                "owner_id" => 1,
                 "moves" => [
                     [
                         "order" => 0,
@@ -77,6 +79,7 @@ class DrillSeeder extends Seeder
                 'id' => $drill['id'],
                 'name' => $drill['name'],
                 'description' => $drill['description'],
+                "owner_id" => 1,
             ]);
 
             foreach ($drill["moves"] as $move) {

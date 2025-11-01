@@ -17,6 +17,7 @@
         name: "empty",
         description: "",
         moves: [],
+        isPublic: true,
     };
 
     let recordingState: {

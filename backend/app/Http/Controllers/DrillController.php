@@ -12,7 +12,12 @@ class DrillController extends Controller
      */
     public function index()
     {
-        return Drill::all()->load('moves');
+        $userId = request()->user()->id;
+
+        return Drill::where('is_public', true)
+            ->orWhere('owner_id', $userId)
+            ->with('moves')
+            ->get();
     }
 
     /**
