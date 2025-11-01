@@ -60,14 +60,14 @@
         return "clickable";
     }
 
+    // Breite und Höhe einer Zelle (global für Wiederverwendung)
+    const cellWidth = 152.5 / 3;
+    const cellHeight = 137 / 3;
+
     function getCoordinates(position: string): { x: number; y: number } {
         const [half, col, row] = position.split("-");
         const colNum = parseInt(col);
         const rowNum = parseInt(row);
-
-        // Breite und Höhe einer Zelle
-        const cellWidth = 152.5 / 3;
-        const cellHeight = 137 / 3;
 
         // X-Koordinate
         let x;
@@ -231,10 +231,10 @@
                             {@const position = `${half}-${col + 1}-${row + 1}`}
                             {@const coords = getCoordinates(position)}
                             <rect
-                                x={coords.x - 25}
-                                y={coords.y - 20}
-                                width="50"
-                                height="40"
+                                x={coords.x - cellWidth / 2}
+                                y={coords.y - cellHeight / 2}
+                                width={cellWidth}
+                                height={cellHeight}
                                 fill="transparent"
                                 class={getGridCellClass(position)}
                                 on:click={() => handleGridClick(position)}
