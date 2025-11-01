@@ -18,46 +18,49 @@
     }
 </script>
 
-<div class="container py-4">
-    <div class="mb-3">
-        <a href="/" class="btn btn-primary">Back</a>
-    </div>
+<div class="container-fluid p-4 min-vh-100">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xl-8">
+            <!-- Header Card -->
+            <div class="card border-0 bg-dark bg-opacity-50 mb-4" style="backdrop-filter: blur(10px);">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <h1 class="h4 mb-0 text-light">User Management</h1>
+                        <a href="/" class="btn btn-outline-light rounded-pill">Back</a>
+                    </div>
+                </div>
+            </div>
 
-    <h1 class="h2 mb-4 text-white">User Management</h1>
-    
-    <div class="card bg-dark border-secondary">
-        <div class="table-responsive">
-            <table class="table table-dark table-hover mb-0">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {#each users as user}
-                        <tr>
-                            <td>{user.name}</td>
-                            <td>{user.email}</td>
-                            <td>
-                                <span class="badge {user.active ? 'bg-success' : 'bg-danger'}">
-                                    {user.active ? 'Active' : 'Inactive'}
-                                </span>
-                            </td>
-                            <td>
-                                <button
-                                    on:click={() => toggleUserActive(user.id)}
-                                    class="btn btn-sm btn-outline-primary"
-                                >
-                                    {user.active ? 'Deactivate' : 'Activate'}
-                                </button>
-                            </td>
-                        </tr>
-                    {/each}
-                </tbody>
-            </table>
+            <!-- Users List -->
+            <div class="card border-0 bg-dark bg-opacity-50" style="backdrop-filter: blur(10px);">
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush bg-transparent">
+                        {#each users as user}
+                            <li class="list-group-item bg-transparent border-0 d-flex justify-content-between align-items-center py-3 px-4">
+                                <div class="flex-grow-1">
+                                    <div class="fw-semibold text-light mb-1">
+                                        {user.name}
+                                    </div>
+                                    <p class="text-muted small mb-0">
+                                        {user.email}
+                                    </p>
+                                </div>
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="badge {user.active ? 'bg-success' : 'bg-danger'} rounded-pill">
+                                        {user.active ? 'Active' : 'Inactive'}
+                                    </span>
+                                    <button
+                                        on:click={() => toggleUserActive(user.id)}
+                                        class="btn btn-sm btn-outline-primary rounded-pill"
+                                    >
+                                        {user.active ? 'Deactivate' : 'Activate'}
+                                    </button>
+                                </div>
+                            </li>
+                        {/each}
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>
