@@ -9,5 +9,5 @@ export type Drill = {
     owner_id?: number;
     drill_category?: DrillCategory;
     drill_category_id?: number;
-    isPublic: boolean;
+    is_public: boolean;
 };

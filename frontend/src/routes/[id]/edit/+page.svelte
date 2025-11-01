@@ -11,13 +11,13 @@
 
     let name = data.drill.name;
     let description = data.drill.description;
+    let is_public = data.drill.is_public;
     let moves = [...data.drill.moves];
-    let isPublic = data.drill.isPublic;
     let isSaving = false;
     let errorMessage = "";
     let isDeleting = false;
     let categories: DrillCategory[] = [];
-    let selectedCategoryId: number | null = null;
+    let selectedCategoryId: number;
 
     onMount(async () => {
         try {
@@ -36,9 +36,10 @@
                 name,
                 description,
                 moves,
-                isPublic,
+                is_public,
+                drill_category_id: selectedCategoryId,
             };
-
+            console.log(updatedDrill);
             await DrillsAPI.update(data.drill.id, updatedDrill);
             goto(`/${data.drill.id}`);
         } catch (error) {
@@ -125,7 +126,6 @@
                             </label>
                             <textarea
                                 id="description"
-                                required
                                 bind:value={description}
                                 class="form-control bg-dark border-0"
                                 rows="3"
@@ -203,8 +203,9 @@
                                     class="form-check-input"
                                     type="checkbox"
                                     id="visibility"
-                                    bind:checked={isPublic}
+                                    bind:checked={is_public}
                                 />
+                                {is_public}
                                 <label
                                     class="form-check-label text-light"
                                     for="visibility"

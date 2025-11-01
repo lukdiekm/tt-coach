@@ -25,18 +25,17 @@ class DrillController extends Controller
      */
     public function store(StoreDrillRequest $request)
     {
-//        $drill = Drill::create($request->validated());
         $drill = new Drill();
         $drill->name = $request->name;
         $drill->description = $request->description;
         $drill->is_public = $request->isPublic;
-        $drill->drillCategory()->associate($request->category_id);
+        $drill->drill_category_id = $request->drill_category_id;
         $drill->owner_id = $request->user()->id;
         $drill->save();
 
         $i = 0;
         foreach ($request->moves as $move) {
-            $drill->moves()->create([...$move, 'order' => $i]);
+            $drill->moves()->firstOrCreate(['id' => $move->id], [...$move, 'order' => $i]);
             $i++;
         }
 
@@ -61,12 +60,14 @@ class DrillController extends Controller
         }
 
         $drill->update($request->validated());
-
+        $drill->is_public = $request->is_public;
+        $drill->drillCategory()->associate($request->drill_category_id);
         foreach ($request->moves as $move) {
-            $drill->moves()->create($move);
+            $drill->moves()->firstOrCreate(['id' => $move['id']], $move);
         }
+        $drill->save();
 
-        return response()->json($drill->load('moves'), 201);
+        return response()->json($drill->load(['moves', 'drillCategory']), 201);
     }
 
     /**

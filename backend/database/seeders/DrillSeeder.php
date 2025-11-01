@@ -78,25 +78,25 @@ class DrillSeeder extends Seeder
         DrillCategory::create([
             'id' => 1,
             'name' => 'Technik',
-            'color' => '#ff3333ff',
+            'color' => '#ff3333',
         ]);
 
         DrillCategory::create(array(
             'id' => 2,
-            'name' => 'Aufschlage',
-            'color' => '#47e318ff',
+            'name' => 'Aufschläge',
+            'color' => '#2aa304',
         ));
 
         DrillCategory::create([
             'id' => 3,
             'name' => 'Schnelligkeit',
-            'color' => '#0e39e1ff',
+            'color' => '#0e39e1',
         ]);
 
         DrillCategory::create([
             'id' => 4,
             'name' => 'Platzierung',
-            'color' => '#ffe433ff',
+            'color' => '#ffbe33',
         ]);
 
         foreach ($drills as $drill) {
